@@ -32,7 +32,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
 
-    implementation 'com.cumberland.weplansdk:weplansdk:2.3.12'
+    implementation 'com.cumberland.weplansdk:weplansdk:2.3.13'
     implementation "com.google.android.gms:play-services-analytics:17.0.0"
     implementation "com.google.android.gms:play-services-location:17.0.0"
 
