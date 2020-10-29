@@ -3,6 +3,7 @@ package com.cumberland.sample.webview;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -12,6 +13,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.cumberland.weplansdk.WeplanSdk;
+import com.cumberland.weplansdk.WeplanSdkCallback;
+import com.cumberland.weplansdk.init.WeplanSdkException;
+
+import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,9 +46,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initWeplanSdk() {
-        WeplanSdk.INSTANCE.withContext(this)
+        WeplanSdk.withContext(this)
                 .withClientId("YOUR_CLIENT_ID") // Get credentials registering in https://sdk.weplan-app.com/
                 .withClientSecret("YOUR_CLIENT_SECRET")
+                .listening(new InitSdkCallback())
                 .enable();
     }
 
@@ -64,5 +70,15 @@ public class MainActivity extends AppCompatActivity {
 
             default: super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    private static class InitSdkCallback implements WeplanSdkCallback {
+        @Override
+        public void onSdkInit() {
+            Log.i("WeplanSdk", "WeplanSdk init");
+        }
+
+        @Override
+        public void onSdkError(@NotNull WeplanSdkException e) { }
     }
 }
